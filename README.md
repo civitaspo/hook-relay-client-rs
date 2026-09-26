@@ -1,10 +1,26 @@
 # hook-relay-client-rs
 
 [![CI](https://github.com/civitaspo/hook-relay-client-rs/actions/workflows/pull_request.yml/badge.svg)](https://github.com/civitaspo/hook-relay-client-rs/actions/workflows/pull_request.yml)
+[![Release](https://github.com/civitaspo/hook-relay-client-rs/actions/workflows/release-tag.yml/badge.svg)](https://github.com/civitaspo/hook-relay-client-rs/actions/workflows/release-tag.yml)
 
 hook-relay-client-rs is a Rust implementation of the [hook-relay](https://github.com/itkq/hook-relay) client. It connects to a hook-relay server over WebSocket and forwards the webhooks the server relays to a local endpoint, such as a development server.
 
 It builds a single binary, `hook-relay-client`, with the same flags, environment variables, and wire format as the upstream Node.js client, so it works with an unmodified hook-relay server.
+
+## Install
+
+Download the binary for your platform from the [latest release](https://github.com/civitaspo/hook-relay-client-rs/releases/latest). Releases ship `hook-relay-client-<target>` for `aarch64-apple-darwin`, `x86_64-apple-darwin`, `x86_64-unknown-linux-musl`, and `aarch64-unknown-linux-musl`, each with a `.sha256` file.
+
+```bash
+target=aarch64-apple-darwin
+base=https://github.com/civitaspo/hook-relay-client-rs/releases/latest/download
+curl -fsSLO "$base/hook-relay-client-$target"
+curl -fsSLO "$base/hook-relay-client-$target.sha256"
+shasum -a 256 -c "hook-relay-client-$target.sha256"
+install -m 755 "hook-relay-client-$target" /usr/local/bin/hook-relay-client
+```
+
+Or build from source with `cargo install --locked --git https://github.com/civitaspo/hook-relay-client-rs`.
 
 ## Usage
 
