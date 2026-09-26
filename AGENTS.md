@@ -12,6 +12,7 @@ hook-relay-client-rs is a Rust implementation of the [hook-relay](https://github
 - Sign commits. Do not amend or rewrite commits that have already been merged.
 - Keep changes focused. Do not add implementation code to setup-only changes.
 - Use the MIT License for this repository.
+- Keep the command-line flags, environment variables, and wire format compatible with the upstream client. Document every intended difference in the README.
 
 ## Local tooling
 
@@ -21,10 +22,12 @@ Install the pinned tools with:
 mise install --locked
 ```
 
-Run this check before opening a pull request:
+Run these checks before opening a pull request:
 
 ```bash
 mise run lint
+mise run test
+mise run build
 ```
 
 ## GitHub Actions and credentials

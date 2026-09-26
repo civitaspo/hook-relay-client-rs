@@ -12,6 +12,11 @@ defaults:
     shell: bash -euo pipefail {0}
 
 jobs:
+  rust:
+    uses: ./.github/workflows/wc-rust.yml
+    permissions:
+      contents: read
+
   lint:
     uses: ./.github/workflows/wc-lint.yml
     permissions:
