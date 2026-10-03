@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Maintenance
 
+- update rust crate tokio to v1.53.2 (#7)
 - update dependency jdx/mise to v2026.10.0 (#8)
 - update dependency jdx/mise to v2026.9.15 (#5)
 
