@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Maintenance
 
+- update rust crate uuid to v1.28.0 (#25)
 - update rust crate serde_json to v1.0.152 (#32)
 - update Securefix caller workflows to v0.2.9 (#33)
 - update Securefix caller workflows to v0.2.8 (#31)
