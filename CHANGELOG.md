@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Maintenance
 
+- update dependency jdx/mise to v2026.10.9 (#41)
 - update actions/create-github-app-token action to v3.3.0 (#40)
 - update rust crate sha2 to v0.11.1 (#39)
 - update rust crate serde_json to v1.0.154 (#38)
