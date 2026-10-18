@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.1] - 2026-10-18
 
 
+### Bug Fixes
+
+- request merges through Securefix comments (#55)
+
+
 ### Maintenance
 
 - update Securefix caller workflows to v0.2.32 (#56)
