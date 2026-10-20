@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Maintenance
 
+- update Securefix caller workflows to v0.2.44 (#61)
 - update rust crate tokio to v1.54.0 (#60)
 - update Securefix caller workflows to v0.2.36 (#59)
 - lock file maintenance (#58)
