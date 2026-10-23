@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.1.1] - 2026-10-22
+## [0.1.1] - 2026-10-23
 
 
 ### Bug Fixes
@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Maintenance
 
+- update rust crate uuid to v1.29.0 (#64)
 - update dependency aqua:suzuki-shunsuke/pinact to v5.0.1 (#63)
 - update rust crate tokio to v1.54.1 (#62)
 - update Securefix caller workflows to v0.2.44 (#61)
