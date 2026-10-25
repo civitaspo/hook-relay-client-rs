@@ -24,4 +24,4 @@ For releases, see [releasing.md](releasing.md).
 
 `.github/workflows/actions.lock` records direct pins and transitive action dependencies. Full SHA pins, `pinact`, and the SHA-pinning policy remain required. After changing dependencies, regenerate the lockfile with `mise run actions-lock` and verify it with `mise run actions-lock-verify` using the ordinary GitHub login. Verification never writes files. See the [development commands](../README.md#workflow-dependencies).
 
-The shared actions repository also commits its workflow lockfile. This client lockfile does not replace that coverage. The **Require lockfile** Actions policy stays enabled here.
+The shared actions repository also commits its workflow lockfile. This client lockfile does not replace that coverage.
