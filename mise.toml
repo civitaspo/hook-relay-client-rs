@@ -5,10 +5,13 @@ rust = { version = "1.99.1", components = ["clippy", "rustfmt"] }
 "aqua:suzuki-shunsuke/ghalint" = "1.5.6"
 "aqua:suzuki-shunsuke/pinact" = "5.0.1"
 
+"github:github/gh-actions-lock" = { version = "v0.4.0", bin = "gh-actions-lock" }
+
 [tasks.lint]
 description = "Run repository and Rust lint checks"
 run = [
   "ghalint run",
+  "gh-actions-lock --verify-local",
   "pinact run --check --verify-comment",
   "cargo fmt --all -- --check",
   "cargo clippy --workspace --all-targets --all-features --locked -- -D warnings",
@@ -21,3 +24,11 @@ run = "cargo test --workspace --locked"
 [tasks.build]
 description = "Build the Rust workspace"
 run = "cargo build --workspace --locked"
+
+[tasks.actions-lock]
+description = "Regenerate workflow dependencies without rewriting source pins"
+run = "gh-actions-lock --no-interactive --no-narrow --no-migrate-local-actions"
+
+[tasks.actions-lock-verify]
+description = "Verify workflow dependency coverage against GitHub"
+run = "gh-actions-lock --verify"

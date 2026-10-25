@@ -1,7 +1,7 @@
 # hook-relay-client-rs
 
 [![CI](https://github.com/civitaspo/hook-relay-client-rs/actions/workflows/pull_request.yml/badge.svg)](https://github.com/civitaspo/hook-relay-client-rs/actions/workflows/pull_request.yml)
-[![Release](https://github.com/civitaspo/hook-relay-client-rs/actions/workflows/release-tag.yml/badge.svg)](https://github.com/civitaspo/hook-relay-client-rs/actions/workflows/release-tag.yml)
+[![Release](https://github.com/civitaspo/hook-relay-client-rs/actions/workflows/csm-ci-release.yml/badge.svg)](https://github.com/civitaspo/hook-relay-client-rs/actions/workflows/csm-ci-release.yml)
 
 hook-relay-client-rs is a Rust implementation of the [hook-relay](https://github.com/itkq/hook-relay) client. It connects to a hook-relay server over WebSocket and forwards the webhooks the server relays to a local endpoint, such as a development server.
 
@@ -96,6 +96,10 @@ mise run lint
 mise run test
 mise run build
 ```
+
+### Workflow dependencies
+
+Full SHA pins and `.github/workflows/actions.lock` cover workflow dependencies. After changing dependencies, run `mise run actions-lock`, review the generated lockfile, then run `mise run actions-lock-verify` using the ordinary GitHub login. The generator preserves immutable source pins.
 
 ## License
 

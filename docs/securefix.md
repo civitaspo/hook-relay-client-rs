@@ -1,39 +1,27 @@
-# Securefix setup
+# Pull request automation
 
-This repository uses the Client/Server Model around [`civitaspo/securefix-server`](https://github.com/civitaspo/securefix-server). Client workflows request signed machine commits or approvals; the server holds the strong credentials and performs the privileged operation.
+This repository uses [csm-ci-actions](https://github.com/civitaspo/csm-ci-actions) with [civitaspo/csm-ci-server](https://github.com/civitaspo/csm-ci-server).
 
-## GitHub Apps
+## Client configuration
 
-Install the Securefix client and server GitHub Apps on this repository and on `civitaspo/securefix-server`.
+The client uses variables `CSM_CI_CLIENT_APP_CLIENT_ID` and `CSM_CI_SERVER_REPOSITORY` (`civitaspo/csm-ci-server`), and secret `CSM_CI_CLIENT_APP_PRIVATE_KEY`. Strong credentials stay in the server repository's `csm-ci` environment. Credential and App permission changes belong to the owner.
 
-- The client app needs `issues: write` so it can create request labels on the server repository.
-- The server app needs the permissions required by the server workflows, including `contents: write`, `actions: read`, `pull_requests: write`, and `workflows: write` when it updates workflow files.
+## Approval and merge
 
-The `civitaspo-bot` machine user must have write access to this repository for its approval to count toward the branch ruleset.
+The managed callers request policy checks and approval for signed commits by trusted committers. Sensitive changes, including workflows and dependency manifests, require the owner to comment `/approve` on the current head. A new commit dismisses the old approval. `/recheck` refreshes the policy and approval decision.
 
-## Client variables and secret
+After the required `status-check`, `csm-ci/policy`, and approval pass, the owner comments `/merge`. The Server App performs the squash merge. Repository settings disable other merge methods and automatic merging. Common caller workflows and the PR template are managed by the server.
 
-Configure these values on `civitaspo/hook-relay-client-rs`:
+## Workflow autofix
 
-| Name | Type | Value or purpose |
-| --- | --- | --- |
-| `SECUREFIX_CLIENT_APP_ID` | Repository variable | Securefix client GitHub App ID |
-| `SECUREFIX_SERVER_REPOSITORY` | Repository variable | `securefix-server` (repository name only) |
-| `SECUREFIX_CLIENT_PRIVATE_KEY` | Repository secret | Securefix client GitHub App private key |
+The Autofix job checks out the exact PR head, runs the existing workflow fixers, and uses `actions/client/securefix` to package changes. The server validates the workflow run, signed head, artifact, and configured write policy before committing fixes. Workflow changes are explicitly allowed by the shared server policy. No changes means no request.
 
-Strong credentials such as the server app private key, the `civitaspo-bot` approval token, GPG keys, and repository-settings tokens remain only on `civitaspo/securefix-server`.
+Renovate owns GitHub Actions and mise version updates. Dependabot security updates remain eligible for the same trusted-commit policy. Dependency PRs still pass the required checks and use the server merge flow.
 
-## Workflows
+For releases, see [releasing.md](releasing.md).
 
-- `CI` is the top-level pull request workflow. Its autofix job runs `pinact`, `ghalint`, and checkout-credential checks. If those tools change files, Securefix requests a signed commit through the server.
-- `Approve Request` handles trusted pull request events and `/approve` comments from `civitaspo`. Its trusted actor and `allowed_committers` set is `civitaspo`, `cursoragent`, `renovate[bot]`, `dependabot[bot]`, and `civitaspo-securefix-server[bot]`.
-- The server Securefix workflow must allow the client workflow name `CI`.
-- `Release PR`, `Release PR Sync`, and `Release Tag` call the reusable release workflows on `civitaspo/securefix-server`. The server allows the Securefix client workflow name `Release PR`, lists this repository in `release-clients.yaml` (`publish: github-release`), and protects its tags through `repo-settings/tags-allowlist.json`. `Release Assets` uploads the binaries with the workflow's own token. See [releasing.md](releasing.md).
+## Workflow dependency lockfiles
 
-No workflow uses `secrets: inherit`; the client private key is passed explicitly to the reusable workflow that needs it.
+`.github/workflows/actions.lock` records direct pins and transitive action dependencies. Full SHA pins, `pinact`, and the SHA-pinning policy remain required. After changing dependencies, regenerate the lockfile with `mise run actions-lock` and verify it with `mise run actions-lock-verify` using the ordinary GitHub login. Verification never writes files. See the [development commands](../README.md#workflow-dependencies).
 
-## Dependency updates and repository settings
-
-Renovate owns version updates for GitHub Actions and mise tools. Non-major updates may be automerged after approval and green checks. Dependabot version updates are not configured; Dependabot security pull requests remain eligible for approval when enabled in GitHub settings.
-
-Squash-only merges, auto-merge, branch-update suggestions, signed commits, the single required `status-check`, and the `civitaspo-bot` collaborator are reconciled from the `repo-settings/` files in `civitaspo/securefix-server`. See the server's [repository settings documentation](https://github.com/civitaspo/securefix-server/blob/main/docs/repo-settings.md).
+The shared actions repository also commits its workflow lockfile. This client lockfile does not replace that coverage. The **Require lockfile** Actions policy stays enabled here.

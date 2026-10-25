@@ -34,11 +34,14 @@ mise run build
 
 - Pin every GitHub Action to an immutable commit SHA and keep `persist-credentials: false` on checkout steps.
 - Keep workflow permissions at the least-privilege level.
-- Do not use `secrets: inherit`; pass each secret explicitly.
-- Use Securefix for automated workflow fixes and signed machine commits.
-- Keep GPG keys, machine-user tokens, server app keys, and other strong credentials only in `civitaspo/securefix-server`.
+- Pass each secret explicitly. The three managed request callers and shared
+  release publisher inherit the Client App key; keep their lint exceptions
+  scoped to those four jobs.
+- Use `actions/client/securefix` for automated fixes and signed machine commits.
+- Keep Server and Approver App keys only in the `csm-ci` environment of
+  `civitaspo/csm-ci-server`. This client holds only the Client App key.
 - See [docs/securefix.md](docs/securefix.md) for the client/server setup.
 
 ## Release
 
-Releases are prepared by the **Release PR** workflow (git-cliff and Securefix on `release/next`). A human squash-merges `chore(release): vX.Y.Z`; **Release Tag** creates the annotated tag and asks `civitaspo/securefix-server` to publish the GitHub Release, and **Release Assets** attaches the binaries. Do not edit `CHANGELOG.md` or `.release-version` on feature pull requests. See [docs/releasing.md](docs/releasing.md).
+Releases are prepared by **csm-ci-release-pr** on `release/next`. It updates only `.release-version` and `CHANGELOG.md`; keep `update-root-version: false` so the fixed Cargo version remains unchanged. The owner requests `/approve` and `/merge` on the current release PR head. The server builds and verifies all four raw binaries before publishing the annotated tag and immutable release with sidecar checksums and provenance. Do not edit `CHANGELOG.md` or `.release-version` on feature pull requests. See [docs/releasing.md](docs/releasing.md).
