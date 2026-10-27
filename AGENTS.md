@@ -44,4 +44,4 @@ mise run build
 
 ## Release
 
-Releases are prepared by **csm-ci-release-pr** on `release/next`. It updates only `.release-version` and `CHANGELOG.md`; keep `update-root-version: false` so the fixed Cargo version remains unchanged. The owner requests `/approve` and `/merge` on the current release PR head. The server builds and verifies all four raw binaries before publishing the annotated tag and immutable release with sidecar checksums and provenance. Do not edit `CHANGELOG.md` or `.release-version` on feature pull requests. See [docs/releasing.md](docs/releasing.md).
+Releases are prepared by **csm-ci-release-pr** on `release/next`. It updates `.release-version`, `CHANGELOG.md`, and the root versions in `Cargo.toml` and `Cargo.lock` (the csm-ci-server `version_files`) to the same version. The owner requests `/approve` and `/merge` on the current release PR head. The server builds and verifies all four raw binaries before publishing the annotated tag and immutable release with sidecar checksums and provenance. Do not edit `CHANGELOG.md` or `.release-version` on feature pull requests. See [docs/releasing.md](docs/releasing.md).
