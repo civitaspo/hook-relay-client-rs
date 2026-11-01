@@ -205,13 +205,6 @@ url = "https://github.com/suzuki-shunsuke/pinact/releases/download/v5.0.1/pinact
 url_api = "https://api.github.com/repos/suzuki-shunsuke/pinact/releases/assets/664460186"
 provenance = "github-attestations"
 
-[[tools.rust]]
-version = "1.99.1"
-backend = "core:rust"
-
-[tools.rust.options]
-components = "clippy,rustfmt"
-
 [[tools."github:github/gh-actions-lock"]]
 version = "0.4.0"
 backend = "github:github/gh-actions-lock"
@@ -257,3 +250,10 @@ checksum = "sha256:a64179817d7605d705e805475a09b5ef0be12a3469477d8607350f1f3cc26
 url = "https://github.com/github/gh-actions-lock/releases/download/v0.4.0/windows-amd64.exe"
 url_api = "https://api.github.com/repos/github/gh-actions-lock/releases/assets/670717964"
 provenance = "github-attestations"
+
+[[tools.rust]]
+version = "1.99.1"
+backend = "core:rust"
+
+[tools.rust.options]
+components = "clippy,rustfmt"
