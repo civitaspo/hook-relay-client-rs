@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.3] - 2026-11-14
+
+
+### Maintenance
+
+- update civitaspo/csm-ci-actions action to v0.8.0 (#92)
+- update dependency rust to v1.100.0 (#91)
+- update civitaspo/csm-ci-actions action to v0.7.0 (#90)
+- update rust crate uuid to v1.29.2 (#89)
+- lock file maintenance (#88)
+- update rust crate uuid to v1.29.1 (#87)
+- update dependency github:github/gh-actions-lock to v0.4.1 (#85)
+- update amannn/action-semantic-pull-request action to v6.1.2 (#86)
+- lock file maintenance (#84)
+- update civitaspo/csm-ci-actions action to v0.6.0 (#83)
+- update civitaspo/csm-ci-actions action to v0.5.0 (#81)
+- sync managed files (#80)
+- update civitaspo/csm-ci-actions action to v0.3.1
+
 ## [0.1.2] - 2026-10-27
 
 
